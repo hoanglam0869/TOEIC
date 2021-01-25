@@ -40,11 +40,11 @@ public class ChonTuActivity extends AppCompatActivity {
     ArrayList<DuLieu> mangDuLieu, mangTron;
     ArrayList<String> mangTraLoi;
 
-    int chude = -1;
+    String chude;
     int stt = 0;
     int GoiYDe, Exp, Vang;
     int sai = 0;
-    boolean GoiY;
+    boolean isGoiY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +61,10 @@ public class ChonTuActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        chude = intent.getIntExtra("chude", 123);
+        chude = intent.getStringExtra("chude");
 
         database = Database.initDatabase(this, DATABASE_NAME);
-        Cursor cursor = database.rawQuery("SELECT * FROM TOEIC WHERE Chude=" + chude, null);
+        Cursor cursor = database.rawQuery("SELECT * FROM TOEIC WHERE Chude='" + chude + "'", null);
         cursor.moveToFirst();
 
         mangDuLieu = new ArrayList<>();
@@ -81,7 +81,7 @@ public class ChonTuActivity extends AppCompatActivity {
         imgGoiYDe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GoiY = true;
+                isGoiY = true;
                 GoiYDe = Integer.parseInt(txtGoiYDe.getText().toString());
                 txtGoiYDe.setText(GoiYDe - 1 + "");
                 btnTu1.setClickable(false);
@@ -181,7 +181,7 @@ public class ChonTuActivity extends AppCompatActivity {
 
         Exp = 6;
         Vang = 3;
-        GoiY = false;
+        isGoiY = false;
     }
 
     public void ChonDapAn(View view) {
@@ -231,7 +231,7 @@ public class ChonTuActivity extends AppCompatActivity {
         if (mangTron.get(stt).getKetQua().equals("")){
             mangTron.get(stt).setKetQua(kq);
         }
-        if (GoiY & !mangTron.get(stt).getKetQua().equals("S")){
+        if (isGoiY & !mangTron.get(stt).getKetQua().equals("S")){
             Exp = 0;
             Vang = 0;
         }
@@ -274,11 +274,14 @@ public class ChonTuActivity extends AppCompatActivity {
             ProgressBar pbTienTrinh = dialog.findViewById(R.id.pbTienTrinh);
             TextView txtExpdialog = dialog.findViewById(R.id.textViewExp);
             TextView txtVangdialog = dialog.findViewById(R.id.textViewVang);
+            TextView txtChuDe = dialog.findViewById(R.id.textViewChuDe);
+
             int TienTrinh = (stt + 1) * progressBar.getMax() / mangTron.size();
             txtTienTrinh.setText(TienTrinh + "%");
             pbTienTrinh.setProgress(TienTrinh);
             txtExpdialog.setText(txtExp.getText().toString());
             txtVangdialog.setText(txtVang.getText().toString());
+            txtChuDe.setText(mangTron.get(stt).getChuDe());
 
             dialog.show();
         }

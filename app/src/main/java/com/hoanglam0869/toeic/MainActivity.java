@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> mangChuDe;
     ArrayAdapter adapter;
 
-    int chude = -1;
+    String chude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
         btnChontu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (chude < 0){
+                if (chude == null){
                     Toast.makeText(MainActivity.this, "Bạn chưa chọn chủ đề", Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent = new Intent(MainActivity.this, ChonTuActivity.class);
-                    intent.putExtra("chude", chude + 1);
+                    intent.putExtra("chude", chude);
                     startActivity(intent);
                 }
             }
@@ -57,16 +58,16 @@ public class MainActivity extends AppCompatActivity {
         lvChuDe.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                chude = position;
+                chude = mangChuDe.get(position);
             }
         });
     }
 
     private void MangChuDe(){
         mangChuDe = new ArrayList<>();
-        mangChuDe.add("Bài 01: Contracts - Hợp Đồng");                      // 0
-        mangChuDe.add("Bài 02: Marketing - Nghiên Cứu Thị Trường");         // 1
-        mangChuDe.add("Bài 03: Warrranties - Sự Bảo Hành");
-        mangChuDe.add("Bài 04: Business Planning - Kế Hoạch Kinh Doanh");
+        mangChuDe.add("1. Contracts - Hợp Đồng");                      // 0
+        mangChuDe.add("2. Marketing - Nghiên Cứu Thị Trường");         // 1
+        mangChuDe.add("3. Warrranties - Sự Bảo Hành");
+        mangChuDe.add("4. Business Planning - Kế Hoạch Kinh Doanh");
     }
 }

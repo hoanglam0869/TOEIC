@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout"
+        android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -31,10 +31,11 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="@dimen/ChieuCaoProgressBar"
-        android:layout_below="@id/relativeLayout"
+        android:layout_below="@id/relativeLayout1"
         android:progressDrawable="@drawable/custom_progressbar" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/pbTienTrinh"
@@ -86,6 +87,28 @@
                 android:text="@string/ThanhTich"
                 android:textSize="@dimen/ChieuCaoChu" />
         </RelativeLayout>
+    </RelativeLayout>
 
+    <RelativeLayout
+        android:padding="10dp"
+        android:layout_below="@id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ChuDe"
+            android:textColor="@color/MauChuDao"
+            android:textSize="@dimen/ChieuCaoChu" />
+
+        <TextView
+            android:id="@+id/textViewChuDe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView3"
+            android:text="@string/ChuDe"
+            android:textSize="@dimen/ChieuCaoChu" />
     </RelativeLayout>
 </RelativeLayout>
