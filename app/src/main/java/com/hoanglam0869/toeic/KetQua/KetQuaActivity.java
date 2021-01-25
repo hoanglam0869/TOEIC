@@ -60,8 +60,7 @@ public class KetQuaActivity extends AppCompatActivity {
         btnTiepTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(KetQuaActivity.this, MainActivity.class);
-                startActivity(intent);
+                QuayLai();
             }
         });
 
@@ -76,6 +75,7 @@ public class KetQuaActivity extends AppCompatActivity {
     }
 
     private void AnhXa() {
+        toolbar = findViewById(R.id.toolBarKetQua);
         txtExp = findViewById(R.id.textViewExp);
         txtVang = findViewById(R.id.textViewVang);
         txtDung = findViewById(R.id.textViewDung);
@@ -94,7 +94,7 @@ public class KetQuaActivity extends AppCompatActivity {
             builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    KetQuaActivity.super.onBackPressed();
+                    QuayLai();
                 }
             });
             builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -105,7 +105,12 @@ public class KetQuaActivity extends AppCompatActivity {
             });
             builder.show();
         } else {
-            super.onBackPressed();
+            QuayLai();
         }
+    }
+
+    private void QuayLai(){
+        Intent intent = new Intent(KetQuaActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 }
