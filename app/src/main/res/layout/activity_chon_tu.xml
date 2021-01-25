@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChonTuActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarChonTu"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/MauChuDao"
+        app:navigationIcon="@drawable/quaylai"
+        app:title="@string/ChonTu"
+        app:titleMarginStart="@dimen/TieuDe"
+        app:titleTextColor="@color/TieuDe" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolBarChonTu">
+
+        <ImageView
+            android:id="@+id/imageViewExp"
+            android:layout_width="@dimen/KnVang"
+            android:layout_height="@dimen/KnVang"
+            android:layout_marginRight="@dimen/KcKnVang"
+            android:layout_toLeftOf="@id/textViewExp"
+            android:src="@drawable/kinhnghiem" />
+
+        <TextView
+            android:id="@+id/textViewExp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/KcKnVang"
+            android:layout_toLeftOf="@id/imageViewVang"
+            android:text="0"
+            android:textColor="@color/MauChuDao" />
+
+        <ImageView
+            android:id="@+id/imageViewVang"
+            android:layout_width="@dimen/KnVang"
+            android:layout_height="@dimen/KnVang"
+            android:layout_marginRight="@dimen/KcKnVang"
+            android:layout_toLeftOf="@id/textViewVang"
+            android:src="@drawable/vang" />
+
+        <TextView
+            android:id="@+id/textViewVang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/KcKnVang"
+            android:text="0"
+            android:textColor="@color/MauChuDao" />
+
+        <ProgressBar
+            android:id="@+id/progressBarChonTu"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ChieuCaoProgressBar"
+            android:layout_below="@id/imageViewVang"
+            android:progressDrawable="@drawable/custom_progressbar" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeLayout"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageViewHinh"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ChieuCaoHinh"
+            android:background="@drawable/duongvien_goctron"
+            android:padding="@dimen/PaddingHinh" />
+
+        <TextView
+            android:id="@+id/textViewNghia"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/buttonTu1"
+            android:layout_below="@id/imageViewHinh"
+            android:gravity="center"
+            android:text="Nghĩa"
+            android:textColor="@color/MauChuDao"
+            android:textSize="@dimen/ChieuCaoChu" />
+
+        <Button
+            android:id="@+id/buttonTu1"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_above="@id/buttonTu2"
+            android:background="@drawable/duongvien_goctron"
+            android:onClick="ChonDapAn"
+            android:text="Từ 1"
+            android:textAllCaps="false"
+            android:textSize="@dimen/ChieuCaoChu" />
+
+        <Button
+            android:id="@+id/buttonTu2"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/duongvien_goctron"
+            android:onClick="ChonDapAn"
+            android:text="Từ 2"
+            android:textAllCaps="false"
+            android:textSize="@dimen/ChieuCaoChu" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".KetQua.KetQuaActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarKetQua"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/MauChuDao"
+        app:title="@string/KetQua"
+        app:titleMarginStart="@dimen/TieuDe"
+        app:titleTextColor="@color/TieuDe" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/toolBarKetQua"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textViewExp"
+            android:layout_width="120dp"
+            android:layout_height="54dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24dp"
+            android:background="@drawable/duongvien_goctron"
+            android:gravity="center|end"
+            android:padding="10dp"
+            android:text="Exp"
+            android:textColor="@color/MauChuDao"
+            android:textSize="@dimen/ChieuCaoChu" />
+
+        <ImageView
+            android:id="@+id/imageViewExp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/kinhnghiem" />
+
+        <TextView
+            android:id="@+id/textViewVang"
+            android:layout_width="120dp"
+            android:layout_height="54dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/duongvien_goctron"
+            android:gravity="center|start"
+            android:padding="10dp"
+            android:text="Vàng"
+            android:textColor="@color/MauChuDao"
+            android:textSize="@dimen/ChieuCaoChu" />
+
+        <ImageView
+            android:id="@+id/imageViewVang"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/vang" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_below="@id/relativeLayout1"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/textViewDung"
+            android:layout_width="120dp"
+            android:layout_height="54dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24dp"
+            android:background="@drawable/duongvien_goctron"
+            android:gravity="center|end"
+            android:padding="10dp"
+            android:text="Đúng"
+            android:textColor="@color/Dung"
+            android:textSize="@dimen/ChieuCaoChu" />
+
+        <ImageView
+            android:id="@+id/imageViewDung"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/dung" />
+
+        <TextView
+            android:id="@+id/textViewSai"
+            android:layout_width="120dp"
+            android:layout_height="54dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/duongvien_goctron"
+            android:gravity="center|start"
+            android:padding="10dp"
+            android:text="Sai"
+            android:textColor="@color/Sai"
+            android:textSize="@dimen/ChieuCaoChu" />
+
+        <ImageView
+            android:id="@+id/imageViewSai"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/sai" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relativeLayout2"
+        android:padding="10dp">
+
+        <ListView
+            android:id="@+id/listViewKetQua"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/buttonTiepTuc"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/duongvien_goctron" />
+
+        <ImageView
+            android:id="@+id/imageViewLamLai"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/duongvien_goctron"
+            android:padding="5dp"
+            android:src="@drawable/lamlai" />
+
+        <Button
+            android:id="@+id/buttonTiepTuc"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/imageViewLamLai"
+            android:background="@drawable/duongvien_goctron"
+            android:text="@string/TiepTuc"
+            android:textSize="@dimen/ChieuCaoChu" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView"
+            android:text="@string/TienTrinh"
+            android:textSize="@dimen/ChieuCaoChu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/textViewTienTrinh"
+            android:layout_below="@id/textView"
+            android:text="@string/TienTrinh"
+            android:textSize="@dimen/ChieuCaoChu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:progressDrawable="@drawable/custom_progressbar"
+        android:layout_height="@dimen/ChieuCaoProgressBar"
+        android:layout_below="@id/relativeLayout"/>
+
+
+</RelativeLayout>

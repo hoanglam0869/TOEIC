@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarMain"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/MauChuDao"
+        app:titleTextColor="@color/TieuDe" />
+
+    <RelativeLayout
+        android:layout_below="@id/toolBarMain"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/buttonChontu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn từ"
+            android:background="@drawable/duongvien_goctron"/>
+
+        <ListView
+            android:id="@+id/listViewChuDe"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/buttonChontu"/>
+    </RelativeLayout>
+</RelativeLayout>
