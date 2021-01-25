@@ -69,21 +69,4 @@ public class MainActivity extends AppCompatActivity {
         mangChuDe.add("Bài 03: Warrranties - Sự Bảo Hành");
         mangChuDe.add("Bài 04: Business Planning - Kế Hoạch Kinh Doanh");
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.TienDo:
-                Toast.makeText(this, "Tiến Độ", Toast.LENGTH_SHORT).show();
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-
-    }
 }

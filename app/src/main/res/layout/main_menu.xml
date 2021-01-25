@@ -1,38 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="10dp">
 
         <TextView
-            android:id="@+id/textView"
-            android:text="@string/TienTrinh"
-            android:textSize="@dimen/ChieuCaoChu"
+            android:id="@+id/textView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="@string/TienTrinh"
+            android:textColor="@color/MauChuDao"
+            android:textSize="@dimen/ChieuCaoChu" />
 
         <TextView
             android:id="@+id/textViewTienTrinh"
-            android:layout_below="@id/textView"
-            android:text="@string/TienTrinh"
-            android:textSize="@dimen/ChieuCaoChu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView1"
+            android:text="@string/TienTrinh"
+            android:textSize="@dimen/ChieuCaoChu" />
     </RelativeLayout>
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/pbTienTrinh"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:progressDrawable="@drawable/custom_progressbar"
         android:layout_height="@dimen/ChieuCaoProgressBar"
-        android:layout_below="@id/relativeLayout"/>
+        android:layout_below="@id/relativeLayout"
+        android:progressDrawable="@drawable/custom_progressbar" />
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pbTienTrinh"
+        android:padding="10dp">
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ThanhTich"
+            android:textColor="@color/MauChuDao"
+            android:textSize="@dimen/ChieuCaoChu" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView2">
+
+            <ImageView
+                android:id="@+id/imageViewExp"
+                android:layout_width="@dimen/KnVang"
+                android:layout_height="@dimen/KnVang"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/kinhnghiem" />
+
+            <TextView
+                android:id="@id/textViewExp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/imageViewExp"
+                android:text="@string/ThanhTich"
+                android:textSize="@dimen/ChieuCaoChu" />
+
+            <ImageView
+                android:id="@+id/imageViewVang"
+                android:layout_width="@dimen/KnVang"
+                android:layout_height="@dimen/KnVang"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/vang" />
+
+            <TextView
+                android:id="@id/textViewVang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/imageViewVang"
+                android:text="@string/ThanhTich"
+                android:textSize="@dimen/ChieuCaoChu" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 </RelativeLayout>

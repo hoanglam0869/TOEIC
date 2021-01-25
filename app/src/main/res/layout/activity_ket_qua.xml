@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/MauChuDao"
+        app:navigationIcon="@drawable/quaylai"
         app:title="@string/KetQua"
         app:titleMarginStart="@dimen/TieuDe"
         app:titleTextColor="@color/TieuDe" />

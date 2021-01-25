@@ -15,7 +15,7 @@ import androidx.appcompat.app.AlertDialog;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class HamChung {
+public class Chung {
     public static void AmThanh(Context context, int id){
         MediaPlayer mediaPlayer = MediaPlayer.create(context, id);
         mediaPlayer.start();

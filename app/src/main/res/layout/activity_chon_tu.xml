@@ -23,6 +23,22 @@
         android:layout_below="@id/toolBarChonTu">
 
         <ImageView
+            android:id="@+id/imgGoiYDe"
+            android:layout_width="@dimen/KnVang"
+            android:layout_height="@dimen/KnVang"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/goiyde" />
+
+        <TextView
+            android:id="@+id/textViewGoiYDe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/imgGoiYDe"
+            android:text="100"
+            android:textColor="@color/MauChuDao" />
+
+        <ImageView
             android:id="@+id/imageViewExp"
             android:layout_width="@dimen/KnVang"
             android:layout_height="@dimen/KnVang"
@@ -78,16 +94,29 @@
             android:background="@drawable/duongvien_goctron"
             android:padding="@dimen/PaddingHinh" />
 
-        <TextView
-            android:id="@+id/textViewNghia"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/buttonTu1"
-            android:layout_below="@id/imageViewHinh"
-            android:gravity="center"
-            android:text="Nghĩa"
-            android:textColor="@color/MauChuDao"
-            android:textSize="@dimen/ChieuCaoChu" />
+            android:layout_below="@id/imageViewHinh">
+
+            <TextView
+                android:id="@+id/textViewNghia"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Nghĩa"
+                android:textColor="@color/MauChuDao"
+                android:textSize="@dimen/ChieuCaoChu" />
+
+            <ImageView
+                android:id="@+id/imageViewGoiYDe"
+                android:layout_width="@dimen/GoiY"
+                android:layout_height="@dimen/GoiY"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/goiyde" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/buttonTu1"

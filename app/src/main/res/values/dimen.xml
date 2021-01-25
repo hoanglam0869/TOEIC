@@ -8,4 +8,5 @@
     <dimen name="ChieuCaoChu">20sp</dimen>
     <dimen name="Margin">10dp</dimen>
     <dimen name="PaddingHinh">1dp</dimen>
+    <dimen name="GoiY">48dp</dimen>
 </resources>

@@ -1,19 +1,20 @@
 package com.hoanglam0869.toeic;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -23,7 +24,6 @@ import android.widget.TextView;
 import com.hoanglam0869.toeic.KetQua.KetQuaActivity;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -34,17 +34,17 @@ public class ChonTuActivity extends AppCompatActivity {
 
     Toolbar toolbar;
     ProgressBar progressBar;
-    ImageView imgHinh;
-    TextView txtExp, txtVang, txtNghia;
+    ImageView imgHinh, imgGoiYDe;
+    TextView txtGoiYDe, txtExp, txtVang, txtNghia;
     Button btnTu1, btnTu2;
     ArrayList<DuLieu> mangDuLieu, mangTron;
     ArrayList<String> mangTraLoi;
 
     int chude = -1;
     int stt = 0;
-    int Exp;
-    int Vang;
+    int GoiYDe, Exp, Vang;
     int sai = 0;
+    boolean GoiY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,16 +76,59 @@ public class ChonTuActivity extends AppCompatActivity {
         mangTron = new ArrayList<>();
         mangTron.addAll(mangDuLieu);
         DoiCauHoi();
-        HamChung.ThanhTienDo(progressBar, stt, mangDuLieu);
+        Chung.ThanhTienDo(progressBar, stt, mangDuLieu);
+
+        imgGoiYDe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GoiY = true;
+                GoiYDe = Integer.parseInt(txtGoiYDe.getText().toString());
+                txtGoiYDe.setText(GoiYDe - 1 + "");
+                btnTu1.setClickable(false);
+                btnTu2.setClickable(false);
+                if (mangTron.get(stt).getTu().equals(btnTu1.getText().toString())){
+                    btnTu1.setBackgroundResource(R.drawable.duongvien_goctron_dung);
+                } else {
+                    btnTu2.setBackgroundResource(R.drawable.duongvien_goctron_dung);
+                }
+                Chung.AmThanh(ChonTuActivity.this, R.raw.dung);
+                GhiDapAn("D");
+                Chung.PlayNhacMp3(mangTron.get(stt).getAmThanh());
+                new CountDownTimer(2000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+                    @Override
+                    public void onFinish() {
+                        if (stt == mangDuLieu.size() - 1){
+                            Intent intent = new Intent(ChonTuActivity.this, KetQuaActivity.class);
+                            intent.putExtra("exp", txtExp.getText().toString());
+                            intent.putExtra("vang", txtVang.getText().toString());
+                            intent.putExtra("sai", sai);
+                            intent.putExtra("dung", mangDuLieu.size() - sai);
+                            intent.putExtra("dulieu", mangTron);
+                            intent.putExtra("chude", chude);
+                            startActivity(intent);
+                        } else {
+                            stt++;
+                            DoiCauHoi();
+                            Chung.ThanhTienDo(progressBar, stt, mangDuLieu);
+                        }
+                    }
+                }.start();
+            }
+        });
     }
 
     private void AnhXa() {
         toolbar = findViewById(R.id.toolBarChonTu);
+        txtGoiYDe = findViewById(R.id.textViewGoiYDe);
         txtExp = findViewById(R.id.textViewExp);
         txtVang = findViewById(R.id.textViewVang);
         progressBar = findViewById(R.id.progressBarChonTu);
         imgHinh = findViewById(R.id.imageViewHinh);
         txtNghia = findViewById(R.id.textViewNghia);
+        imgGoiYDe = findViewById(R.id.imageViewGoiYDe);
         btnTu1 = findViewById(R.id.buttonTu1);
         btnTu2 = findViewById(R.id.buttonTu2);
     }
@@ -138,18 +181,18 @@ public class ChonTuActivity extends AppCompatActivity {
 
         Exp = 6;
         Vang = 3;
+        GoiY = false;
     }
 
     public void ChonDapAn(View view) {
-        int id = view.getId();
-        Button btn = findViewById(id);
+        Button btn = (Button) view;
         if (mangTron.get(stt).getTu().equals(btn.getText().toString())){
             btnTu1.setClickable(false);
             btnTu2.setClickable(false);
             btn.setBackgroundResource(R.drawable.duongvien_goctron_dung);
-            HamChung.AmThanh(this, R.raw.dung);
+            Chung.AmThanh(this, R.raw.dung);
             GhiDapAn("D");
-            HamChung.PlayNhacMp3(mangTron.get(stt).getAmThanh());
+            Chung.PlayNhacMp3(mangTron.get(stt).getAmThanh());
             new CountDownTimer(2000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -168,13 +211,13 @@ public class ChonTuActivity extends AppCompatActivity {
                     } else {
                         stt++;
                         DoiCauHoi();
-                        HamChung.ThanhTienDo(progressBar, stt, mangDuLieu);
+                        Chung.ThanhTienDo(progressBar, stt, mangDuLieu);
                     }
                 }
             }.start();
         } else {
             btn.setBackgroundResource(R.drawable.duongvien_goctron_sai);
-            HamChung.AmThanh(this, R.raw.sai);
+            Chung.AmThanh(this, R.raw.sai);
             GhiDapAn("S");
         }
     }
@@ -187,6 +230,10 @@ public class ChonTuActivity extends AppCompatActivity {
         }
         if (mangTron.get(stt).getKetQua().equals("")){
             mangTron.get(stt).setKetQua(kq);
+        }
+        if (GoiY & !mangTron.get(stt).getKetQua().equals("S")){
+            Exp = 0;
+            Vang = 0;
         }
         if (kq.equals("D")){
             Thuong(txtExp, Exp);
@@ -209,5 +256,32 @@ public class ChonTuActivity extends AppCompatActivity {
             }
         });
         valueAnimator.start();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.Menu){
+            Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.main_menu);
+
+            TextView txtTienTrinh = dialog.findViewById(R.id.textViewTienTrinh);
+            ProgressBar pbTienTrinh = dialog.findViewById(R.id.pbTienTrinh);
+            TextView txtExpdialog = dialog.findViewById(R.id.textViewExp);
+            TextView txtVangdialog = dialog.findViewById(R.id.textViewVang);
+            int TienTrinh = (stt + 1) * progressBar.getMax() / mangTron.size();
+            txtTienTrinh.setText(TienTrinh + "%");
+            pbTienTrinh.setProgress(TienTrinh);
+            txtExpdialog.setText(txtExp.getText().toString());
+            txtVangdialog.setText(txtVang.getText().toString());
+
+            dialog.show();
+        }
+        return true;
     }
 }

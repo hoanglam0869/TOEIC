@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hoanglam0869.toeic.DuLieu;
-import com.hoanglam0869.toeic.HamChung;
+import com.hoanglam0869.toeic.Chung;
 import com.hoanglam0869.toeic.R;
 
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class KetQuaAdapter extends BaseAdapter {
         holder.imgAmThanh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HamChung.PlayNhacMp3(duLieu.getAmThanh());
+                Chung.PlayNhacMp3(duLieu.getAmThanh());
             }
         });
 

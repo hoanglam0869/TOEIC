@@ -1,7 +1,10 @@
 package com.hoanglam0869.toeic.KetQua;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,6 +22,7 @@ import java.util.ArrayList;
 
 public class KetQuaActivity extends AppCompatActivity {
 
+    Toolbar toolbar;
     TextView txtExp, txtVang, txtDung, txtSai;
     ListView lvKetQua;
     ArrayList<DuLieu> listDuLieu;
@@ -33,13 +37,14 @@ public class KetQuaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ket_qua);
 
-        txtExp = findViewById(R.id.textViewExp);
-        txtVang = findViewById(R.id.textViewVang);
-        txtDung = findViewById(R.id.textViewDung);
-        txtSai = findViewById(R.id.textViewSai);
-        lvKetQua = findViewById(R.id.listViewKetQua);
-        imgLamLai = findViewById(R.id.imageViewLamLai);
-        btnTiepTuc = findViewById(R.id.buttonTiepTuc);
+        AnhXa();
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         Intent intent = getIntent();
         txtExp.setText(intent.getStringExtra("exp"));
@@ -68,5 +73,39 @@ public class KetQuaActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private void AnhXa() {
+        txtExp = findViewById(R.id.textViewExp);
+        txtVang = findViewById(R.id.textViewVang);
+        txtDung = findViewById(R.id.textViewDung);
+        txtSai = findViewById(R.id.textViewSai);
+        lvKetQua = findViewById(R.id.listViewKetQua);
+        imgLamLai = findViewById(R.id.imageViewLamLai);
+        btnTiepTuc = findViewById(R.id.buttonTiepTuc);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!txtExp.getText().toString().equals("0") | !txtVang.getText().toString().equals("0")){
+            AlertDialog.Builder builder = new  AlertDialog.Builder(this);
+            builder.setTitle("Bạn có chắc chắn muốn quay lại?");
+            builder.setMessage("Kinh nghiệm và vàng sẽ bị mất.");
+            builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    KetQuaActivity.super.onBackPressed();
+                }
+            });
+            builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            builder.show();
+        } else {
+            super.onBackPressed();
+        }
     }
 }
