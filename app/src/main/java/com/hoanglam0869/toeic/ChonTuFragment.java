@@ -37,7 +37,7 @@ public class ChonTuFragment extends Fragment {
     ArrayList<DuLieu> mangDuLieu;
     ArrayList<DuLieu> mangTron;
     ArrayList<String> mangTraLoi;
-    int stt = 0;
+    int stt;
     int GoiYDe, Exp, Vang;
     boolean isGoiY;
     String chude;
@@ -55,7 +55,7 @@ public class ChonTuFragment extends Fragment {
         txtExp = chonTuActivity.txtExp;
         txtVang = chonTuActivity.txtVang;
         progressBar = chonTuActivity.progressBar;
-        stt = getArguments().getInt("stt", 0);
+        stt = getArguments().getInt("stt");
         chonTuActivity.stt = stt;
         mPager = chonTuActivity.mPager;
     }
@@ -173,8 +173,6 @@ public class ChonTuFragment extends Fragment {
                     startActivity(intent);
                 } else {
                     mPager.setCurrentItem(stt + 1);
-                    //DoiCauHoi();
-                    //ThanhTienDo();
                 }
             }
         }.start();
