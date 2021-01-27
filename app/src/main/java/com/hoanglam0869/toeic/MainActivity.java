@@ -1,19 +1,18 @@
 package com.hoanglam0869.toeic;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,12 +20,14 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+    TextView txtExp, txtVang;
     Button btnChontu;
     ListView lvChuDe;
     ArrayList<String> mangChuDe;
     ArrayAdapter adapter;
 
     String chude;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +35,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolBarMain);
+        txtExp = findViewById(R.id.textViewExp);
+        txtVang = findViewById(R.id.textViewVang);
         btnChontu = findViewById(R.id.buttonChontu);
         lvChuDe = findViewById(R.id.listViewChuDe);
         setSupportActionBar(toolbar);
+
+        sp = getSharedPreferences("ExpVang", MODE_PRIVATE);
+        txtExp.setText(sp.getString("Exp", "0"));
+        txtVang.setText(sp.getString("Vang", "0"));
 
         MangChuDe();
         adapter = new ArrayAdapter(MainActivity.this, android.R.layout.simple_list_item_1, mangChuDe);

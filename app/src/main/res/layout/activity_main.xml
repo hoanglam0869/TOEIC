@@ -14,23 +14,73 @@
         app:titleTextColor="@color/TieuDe" />
 
     <RelativeLayout
-        android:layout_below="@id/toolBarMain"
-        android:padding="10dp"
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolBarMain">
+
+        <ImageView
+            android:id="@+id/imageViewExp"
+            android:layout_width="@dimen/KnVang"
+            android:layout_height="@dimen/KnVang"
+            android:layout_marginRight="@dimen/KcKnVang"
+            android:layout_toLeftOf="@id/textViewExp"
+            android:src="@drawable/kinhnghiem" />
+
+        <TextView
+            android:id="@+id/textViewExp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/KcKnVang"
+            android:layout_toLeftOf="@id/imageViewVang"
+            android:text="0"
+            android:textColor="@color/MauChuDao" />
+
+        <ImageView
+            android:id="@+id/imageViewVang"
+            android:layout_width="@dimen/KnVang"
+            android:layout_height="@dimen/KnVang"
+            android:layout_marginRight="@dimen/KcKnVang"
+            android:layout_toLeftOf="@id/textViewVang"
+            android:src="@drawable/vang" />
+
+        <TextView
+            android:id="@+id/textViewVang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/KcKnVang"
+            android:text="0"
+            android:textColor="@color/MauChuDao" />
+
+        <ProgressBar
+            android:id="@+id/progressBarExp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ChieuCaoProgressBar"
+            android:layout_below="@id/imageViewVang"
+            android:progressDrawable="@drawable/custom_progressbar"
+            android:tooltipText="abc" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/relativeLayout"
+        android:padding="10dp">
 
         <Button
             android:id="@+id/buttonChontu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Chọn từ"
-            android:background="@drawable/duongvien_goctron"/>
+            android:background="@drawable/duongvien_goctron"
+            android:text="Chọn từ" />
 
         <ListView
             android:id="@+id/listViewChuDe"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/buttonChontu"/>
+            android:layout_below="@id/buttonChontu"
+            android:layout_marginTop="10dp" />
     </RelativeLayout>
 </RelativeLayout>

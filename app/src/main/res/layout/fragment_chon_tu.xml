@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".ChonTuActivity">
+
+    <ImageView
+        android:id="@+id/imageViewHinh"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/ChieuCaoHinh"
+        android:background="@drawable/duongvien_goctron"
+        android:padding="@dimen/PaddingHinh" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/buttonTu1"
+        android:layout_below="@id/imageViewHinh">
+
+        <TextView
+            android:id="@+id/textViewNghia"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Nghĩa"
+            android:textColor="@color/MauChuDao"
+            android:textSize="@dimen/ChieuCaoChu" />
+
+        <ImageView
+            android:id="@+id/imageViewGoiYDe"
+            android:layout_width="@dimen/GoiY"
+            android:layout_height="@dimen/GoiY"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/goiyde" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/buttonTu1"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_above="@id/buttonTu2"
+        android:background="@drawable/duongvien_goctron"
+        android:text="Từ 1"
+        android:textAllCaps="false"
+        android:textSize="@dimen/ChieuCaoChu" />
+
+    <Button
+        android:id="@+id/buttonTu2"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/duongvien_goctron"
+        android:text="Từ 2"
+        android:textAllCaps="false"
+        android:textSize="@dimen/ChieuCaoChu" />
+</RelativeLayout>

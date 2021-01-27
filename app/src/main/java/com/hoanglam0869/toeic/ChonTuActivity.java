@@ -4,13 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
+import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.Menu;
@@ -24,27 +32,27 @@ import android.widget.TextView;
 import com.hoanglam0869.toeic.KetQua.KetQuaActivity;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class ChonTuActivity extends AppCompatActivity {
+
+    private static final int NUM_PAGES = 5;
+    ViewPager mPager;
+    private PagerAdapter pagerAdapter;
 
     String DATABASE_NAME = "toeic.sqlite";
     SQLiteDatabase database;
 
     Toolbar toolbar;
     ProgressBar progressBar;
-    ImageView imgHinh, imgGoiYDe;
-    TextView txtGoiYDe, txtExp, txtVang, txtNghia;
-    Button btnTu1, btnTu2;
+    TextView txtGoiYDe, txtExp, txtVang;
     ArrayList<DuLieu> mangDuLieu, mangTron;
-    ArrayList<String> mangTraLoi;
 
     String chude;
     int stt = 0;
-    int GoiYDe, Exp, Vang;
-    int sai = 0;
-    boolean isGoiY;
+    static int sai = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,49 +83,11 @@ public class ChonTuActivity extends AppCompatActivity {
         Collections.shuffle(mangDuLieu);
         mangTron = new ArrayList<>();
         mangTron.addAll(mangDuLieu);
-        DoiCauHoi();
-        Chung.ThanhTienDo(progressBar, stt, mangDuLieu);
 
-        imgGoiYDe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isGoiY = true;
-                GoiYDe = Integer.parseInt(txtGoiYDe.getText().toString());
-                txtGoiYDe.setText(GoiYDe - 1 + "");
-                btnTu1.setClickable(false);
-                btnTu2.setClickable(false);
-                if (mangTron.get(stt).getTu().equals(btnTu1.getText().toString())){
-                    btnTu1.setBackgroundResource(R.drawable.duongvien_goctron_dung);
-                } else {
-                    btnTu2.setBackgroundResource(R.drawable.duongvien_goctron_dung);
-                }
-                Chung.AmThanh(ChonTuActivity.this, R.raw.dung);
-                GhiDapAn("D");
-                Chung.PlayNhacMp3(mangTron.get(stt).getAmThanh());
-                new CountDownTimer(2000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                    }
-                    @Override
-                    public void onFinish() {
-                        if (stt == mangDuLieu.size() - 1){
-                            Intent intent = new Intent(ChonTuActivity.this, KetQuaActivity.class);
-                            intent.putExtra("exp", txtExp.getText().toString());
-                            intent.putExtra("vang", txtVang.getText().toString());
-                            intent.putExtra("sai", sai);
-                            intent.putExtra("dung", mangDuLieu.size() - sai);
-                            intent.putExtra("dulieu", mangTron);
-                            intent.putExtra("chude", chude);
-                            startActivity(intent);
-                        } else {
-                            stt++;
-                            DoiCauHoi();
-                            Chung.ThanhTienDo(progressBar, stt, mangDuLieu);
-                        }
-                    }
-                }.start();
-            }
-        });
+        mPager = findViewById(R.id.pager);
+        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPager.setAdapter(pagerAdapter);
+        mPager.setPageTransformer(true, new ZoomOutPageTransformer());
     }
 
     private void AnhXa() {
@@ -126,26 +96,41 @@ public class ChonTuActivity extends AppCompatActivity {
         txtExp = findViewById(R.id.textViewExp);
         txtVang = findViewById(R.id.textViewVang);
         progressBar = findViewById(R.id.progressBarChonTu);
-        imgHinh = findViewById(R.id.imageViewHinh);
-        txtNghia = findViewById(R.id.textViewNghia);
-        imgGoiYDe = findViewById(R.id.imageViewGoiYDe);
-        btnTu1 = findViewById(R.id.buttonTu1);
-        btnTu2 = findViewById(R.id.buttonTu2);
+    }
+
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            ChonTuFragment fragment = new ChonTuFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("stt", position);
+            fragment.setArguments(bundle);
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return mangDuLieu.size();
+        }
     }
 
     @Override
     public void onBackPressed() {
         if (!txtExp.getText().toString().equals("0") | !txtVang.getText().toString().equals("0")){
             AlertDialog.Builder builder = new  AlertDialog.Builder(this);
-            builder.setTitle("Bạn có chắc chắn muốn quay lại?");
-            builder.setMessage("Kinh nghiệm và vàng sẽ bị mất.");
-            builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            builder.setTitle(R.string.TitleAlertDialog);
+            builder.setMessage(R.string.MessageAlertDialog);
+            builder.setPositiveButton(R.string.PositiveButtonAlertDialog, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     ChonTuActivity.super.onBackPressed();
                 }
             });
-            builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.NegativeButtonAlertDialog, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -155,107 +140,6 @@ public class ChonTuActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
-    }
-
-    private void DoiCauHoi(){
-        Collections.shuffle(mangDuLieu);
-        mangTraLoi = new ArrayList<>();
-        mangTraLoi.add(mangTron.get(stt).getTu());
-
-        if (mangTron.get(stt).getTu().equals(mangDuLieu.get(0).getTu())){
-            mangTraLoi.add(mangDuLieu.get(1).getTu());
-        } else {
-            mangTraLoi.add(mangDuLieu.get(0).getTu());
-        }
-
-        Picasso.get().load(mangTron.get(stt).getHinhAnh()).into(imgHinh);
-        txtNghia.setText(mangTron.get(stt).getNghia());
-        Collections.shuffle(mangTraLoi);
-        btnTu1.setText(mangTraLoi.get(0));
-        btnTu2.setText(mangTraLoi.get(1));
-
-        btnTu1.setBackgroundResource(R.drawable.duongvien_goctron);
-        btnTu2.setBackgroundResource(R.drawable.duongvien_goctron);
-        btnTu1.setClickable(true);
-        btnTu2.setClickable(true);
-
-        Exp = 6;
-        Vang = 3;
-        isGoiY = false;
-    }
-
-    public void ChonDapAn(View view) {
-        Button btn = (Button) view;
-        if (mangTron.get(stt).getTu().equals(btn.getText().toString())){
-            btnTu1.setClickable(false);
-            btnTu2.setClickable(false);
-            btn.setBackgroundResource(R.drawable.duongvien_goctron_dung);
-            Chung.AmThanh(this, R.raw.dung);
-            GhiDapAn("D");
-            Chung.PlayNhacMp3(mangTron.get(stt).getAmThanh());
-            new CountDownTimer(2000, 1000) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-                }
-                @Override
-                public void onFinish() {
-                    if (stt == mangDuLieu.size() - 1){
-                        Intent intent = new Intent(ChonTuActivity.this, KetQuaActivity.class);
-                        intent.putExtra("exp", txtExp.getText().toString());
-                        intent.putExtra("vang", txtVang.getText().toString());
-                        intent.putExtra("sai", sai);
-                        intent.putExtra("dung", mangDuLieu.size() - sai);
-                        intent.putExtra("dulieu", mangTron);
-                        intent.putExtra("chude", chude);
-                        startActivity(intent);
-                    } else {
-                        stt++;
-                        DoiCauHoi();
-                        Chung.ThanhTienDo(progressBar, stt, mangDuLieu);
-                    }
-                }
-            }.start();
-        } else {
-            btn.setBackgroundResource(R.drawable.duongvien_goctron_sai);
-            Chung.AmThanh(this, R.raw.sai);
-            GhiDapAn("S");
-        }
-    }
-
-    private void GhiDapAn(String kq){
-        if (kq.equals("S") & mangTron.get(stt).getKetQua().equals("")){
-            sai++;
-            Exp = 0;
-            Vang = -(Vang + sai);
-        }
-        if (mangTron.get(stt).getKetQua().equals("")){
-            mangTron.get(stt).setKetQua(kq);
-        }
-        if (isGoiY & !mangTron.get(stt).getKetQua().equals("S")){
-            Exp = 0;
-            Vang = 0;
-        }
-        if (kq.equals("D")){
-            Thuong(txtExp, Exp);
-            Thuong(txtVang, Vang);
-        }
-    }
-
-    private void Thuong(TextView tv, int thuong){
-        int knv = Integer.parseInt(tv.getText().toString());
-        if (knv + thuong < 0){
-            thuong = -knv;
-        }
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(knv, knv + thuong);
-        valueAnimator.setDuration(1000);
-
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                tv.setText(valueAnimator.getAnimatedValue().toString());
-            }
-        });
-        valueAnimator.start();
     }
 
     @Override
@@ -286,5 +170,44 @@ public class ChonTuActivity extends AppCompatActivity {
             dialog.show();
         }
         return true;
+    }
+
+    public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
+        private static final float MIN_SCALE = 0.85f;
+        private static final float MIN_ALPHA = 0.5f;
+
+        public void transformPage(View view, float position) {
+            int pageWidth = view.getWidth();
+            int pageHeight = view.getHeight();
+
+            if (position < -1) { // [-Infinity,-1)
+                // This page is way off-screen to the left.
+                view.setAlpha(0f);
+
+            } else if (position <= 1) { // [-1,1]
+                // Modify the default slide transition to shrink the page as well
+                float scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position));
+                float vertMargin = pageHeight * (1 - scaleFactor) / 2;
+                float horzMargin = pageWidth * (1 - scaleFactor) / 2;
+                if (position < 0) {
+                    view.setTranslationX(horzMargin - vertMargin / 2);
+                } else {
+                    view.setTranslationX(-horzMargin + vertMargin / 2);
+                }
+
+                // Scale the page down (between MIN_SCALE and 1)
+                view.setScaleX(scaleFactor);
+                view.setScaleY(scaleFactor);
+
+                // Fade the page relative to its size.
+                view.setAlpha(MIN_ALPHA +
+                        (scaleFactor - MIN_SCALE) /
+                                (1 - MIN_SCALE) * (1 - MIN_ALPHA));
+
+            } else { // (1,+Infinity]
+                // This page is way off-screen to the right.
+                view.setAlpha(0f);
+            }
+        }
     }
 }

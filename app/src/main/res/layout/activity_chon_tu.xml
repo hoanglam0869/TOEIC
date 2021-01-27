@@ -81,64 +81,9 @@
             android:progressDrawable="@drawable/custom_progressbar" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/pager"
+        android:layout_below="@id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/relativeLayout"
-        android:padding="10dp">
-
-        <ImageView
-            android:id="@+id/imageViewHinh"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/ChieuCaoHinh"
-            android:background="@drawable/duongvien_goctron"
-            android:padding="@dimen/PaddingHinh" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@+id/buttonTu1"
-            android:layout_below="@id/imageViewHinh">
-
-            <TextView
-                android:id="@+id/textViewNghia"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Nghĩa"
-                android:textColor="@color/MauChuDao"
-                android:textSize="@dimen/ChieuCaoChu" />
-
-            <ImageView
-                android:id="@+id/imageViewGoiYDe"
-                android:layout_width="@dimen/GoiY"
-                android:layout_height="@dimen/GoiY"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/goiyde" />
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/buttonTu1"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_above="@id/buttonTu2"
-            android:background="@drawable/duongvien_goctron"
-            android:onClick="ChonDapAn"
-            android:text="Từ 1"
-            android:textAllCaps="false"
-            android:textSize="@dimen/ChieuCaoChu" />
-
-        <Button
-            android:id="@+id/buttonTu2"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/duongvien_goctron"
-            android:onClick="ChonDapAn"
-            android:text="Từ 2"
-            android:textAllCaps="false"
-            android:textSize="@dimen/ChieuCaoChu" />
-    </RelativeLayout>
+        android:layout_height="match_parent"/>
 </RelativeLayout>

@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -30,7 +31,8 @@ public class KetQuaActivity extends AppCompatActivity {
     ImageView imgLamLai;
     Button btnTiepTuc;
 
-    int chude;
+    String chude;
+    SharedPreferences sp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class KetQuaActivity extends AppCompatActivity {
         txtVang.setText(intent.getStringExtra("vang"));
         txtDung.setText(String.valueOf(intent.getIntExtra("dung", 123)));
         txtSai.setText(String.valueOf(intent.getIntExtra("sai", 123)));
-        chude = intent.getIntExtra("chude", 123);
+        chude = intent.getStringExtra("chude");
 
         listDuLieu = (ArrayList<DuLieu>) intent.getSerializableExtra("dulieu");
         adapter = new KetQuaAdapter(this, R.layout.dong_ket_qua, listDuLieu);
@@ -60,6 +62,7 @@ public class KetQuaActivity extends AppCompatActivity {
         btnTiepTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LuuExpVang();
                 QuayLai();
             }
         });
@@ -89,15 +92,15 @@ public class KetQuaActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (!txtExp.getText().toString().equals("0") | !txtVang.getText().toString().equals("0")){
             AlertDialog.Builder builder = new  AlertDialog.Builder(this);
-            builder.setTitle("Bạn có chắc chắn muốn quay lại?");
-            builder.setMessage("Kinh nghiệm và vàng sẽ bị mất.");
-            builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            builder.setTitle(R.string.TitleAlertDialog);
+            builder.setMessage(R.string.MessageAlertDialog);
+            builder.setPositiveButton(R.string.PositiveButtonAlertDialog, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     QuayLai();
                 }
             });
-            builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.NegativeButtonAlertDialog, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -112,5 +115,15 @@ public class KetQuaActivity extends AppCompatActivity {
     private void QuayLai(){
         Intent intent = new Intent(KetQuaActivity.this, MainActivity.class);
         startActivity(intent);
+    }
+
+    private void LuuExpVang(){
+        sp = getSharedPreferences("ExpVang", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        int Exp = Integer.parseInt(sp.getString("Exp", "0")) + Integer.parseInt(txtExp.getText().toString());
+        int Vang = Integer.parseInt(sp.getString("Vang", "0")) + Integer.parseInt(txtVang.getText().toString());
+        editor.putString("Exp", String.valueOf(Exp));
+        editor.putString("Vang", String.valueOf(Vang));
+        editor.commit();
     }
 }

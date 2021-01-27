@@ -6,4 +6,8 @@
     <string name="TienTrinh">Tiến Trình</string>
     <string name="ThanhTich">Thành Tích</string>
     <string name="ChuDe">Chủ Đề</string>
+    <string name="TitleAlertDialog">Bạn có chắc chắn muốn quay lại?</string>
+    <string name="MessageAlertDialog">Kinh nghiệm và vàng sẽ bị mất.</string>
+    <string name="PositiveButtonAlertDialog">Có</string>
+    <string name="NegativeButtonAlertDialog">Không</string>
 </resources>

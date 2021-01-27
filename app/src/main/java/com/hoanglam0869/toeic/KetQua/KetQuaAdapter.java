@@ -1,6 +1,8 @@
 package com.hoanglam0869.toeic.KetQua;
 
 import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hoanglam0869.toeic.DuLieu;
-import com.hoanglam0869.toeic.Chung;
 import com.hoanglam0869.toeic.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class KetQuaAdapter extends BaseAdapter {
@@ -73,10 +75,28 @@ public class KetQuaAdapter extends BaseAdapter {
         holder.imgAmThanh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Chung.PlayNhacMp3(duLieu.getAmThanh());
+                PlayNhacMp3(duLieu.getAmThanh());
             }
         });
 
         return convertView;
+    }
+
+    private void PlayNhacMp3(String url){
+        //url = "http://khoapham.vn/download/vietnamoi.mp3";
+        MediaPlayer mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        try {
+            mediaPlayer.setDataSource(url);
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mp.start();
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
