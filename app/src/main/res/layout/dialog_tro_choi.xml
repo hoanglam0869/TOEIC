@@ -1,31 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="horizontal">
 
     <LinearLayout
+        android:background="@drawable/bg_dialog"
         android:orientation="vertical"
-        android:layout_width="350dp"
+        android:layout_width="@dimen/DialogWidth"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/buttonChonTu"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/duongvien_goctron"
-            android:text="@string/ChonTu"
-            android:textSize="@dimen/ChieuCaoChu" />
+            android:layout_height="42dp"
+            android:background="@drawable/bg_tieu_de">
 
-        <Button
-            android:id="@+id/buttonNgheVaChon"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Chọn Trò Chơi"
+                android:textColor="@color/DialogTitle"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/imageViewDongCaiDat"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_margin="9dp"
+                android:src="@drawable/close"
+                app:tint="#fff" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:padding="10dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/Margin"
-            android:background="@drawable/duongvien_goctron"
-            android:text="@string/NgheVaChonTu"
-            android:textSize="@dimen/ChieuCaoChu" />
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/buttonChonTu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/duongvien_goctron"
+                android:text="@string/ChonTu"
+                android:textSize="@dimen/ChieuCaoChu" />
+
+            <Button
+                android:id="@+id/buttonNgheVaChon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/Margin"
+                android:background="@drawable/duongvien_goctron"
+                android:text="@string/NgheVaChonTu"
+                android:textSize="@dimen/ChieuCaoChu" />
+        </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

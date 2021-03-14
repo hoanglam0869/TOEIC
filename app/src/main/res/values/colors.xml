@@ -15,5 +15,6 @@
     <color name="TieuDe">#FFFFFF</color>
     <color name="BgProgressBar">#C0C0C0</color>
 
-    <color name="DialogStroke">#00FFFF</color>
+    <color name="DialogStrokeColor">#AE73C6</color>
+    <color name="DialogTitle">#FACA78</color>
 </resources>

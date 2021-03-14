@@ -48,7 +48,7 @@ public class ChonTuFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         ChonTuActivity chonTuActivity = (ChonTuActivity) getActivity();
-        chude = chonTuActivity.chude;
+        chude = chonTuActivity.chuDe;
         mangDuLieu = chonTuActivity.mangDuLieu;
         mangTron = chonTuActivity.mangTron;
         txtGoiYDe = chonTuActivity.txtGoiYDe;

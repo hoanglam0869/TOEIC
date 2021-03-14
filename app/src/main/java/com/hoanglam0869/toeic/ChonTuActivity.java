@@ -1,15 +1,5 @@
 package com.hoanglam0869.toeic;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,6 +11,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,10 +51,11 @@ public class ChonTuActivity extends AppCompatActivity {
     TextView txtGoiYDe, txtExp, txtVang;
     ArrayList<DuLieu> mangDuLieu, mangTron;
 
-    String chude;
-    int stt = 0;
+    String chuDe;
+    int stt = 0, viTri = 0;
     static int sai;
     static int tiendo;
+    String url = "https://600tuvungtoeic.com/index.php?mod=lesson&id=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,16 +72,18 @@ public class ChonTuActivity extends AppCompatActivity {
         });
 
         Intent intent = getIntent();
-        chude = intent.getStringExtra("chude");
+        chuDe = intent.getStringExtra("chude");
+        viTri = intent.getIntExtra("vitri", 0);
 
-        database = Database.initDatabase(this, DATABASE_NAME);
-        Cursor cursor = database.rawQuery("SELECT * FROM TOEIC WHERE Chude='" + chude + "'", null);
+        /*database = Database.initDatabase(this, DATABASE_NAME);
+        Cursor cursor = database.rawQuery("SELECT * FROM TOEIC WHERE Chude='" + chuDe + "'", null);
         cursor.moveToFirst();
 
         mangDuLieu = new ArrayList<>();
         do {
             mangDuLieu.add(new DuLieu(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), ""));
-        } while (cursor.moveToNext());
+        } while (cursor.moveToNext());*/
+        mangDuLieu = Chung.GetDuLieu(this, viTri, chuDe);
 
         Collections.shuffle(mangDuLieu);
         mangTron = new ArrayList<>();
@@ -160,7 +175,7 @@ public class ChonTuActivity extends AppCompatActivity {
         return true;
     }
 
-    public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
+    public static class ZoomOutPageTransformer implements ViewPager.PageTransformer {
         private static final float MIN_SCALE = 0.85f;
         private static final float MIN_ALPHA = 0.5f;
 
@@ -197,5 +212,56 @@ public class ChonTuActivity extends AppCompatActivity {
                 view.setAlpha(0f);
             }
         }
+    }
+
+    public void GetDuLieu(int viTri, String chuDe) {
+        mangDuLieu = new ArrayList<>();
+        String duongDan = url + viTri;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, duongDan, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                String hinh = "", tuVung = "", phienAm = "", tuLoai = "null", amThanh = "";
+                Document document = Jsoup.parse(response);
+                if (document != null) {
+                    Elements elements = document.select("div.tuvung");
+                    int i = 0;
+                    for (Element element : elements) {
+                        Element elementSTT = element.select("div.stt").first();
+                        Element elementHinh = element.getElementsByTag("img").first();
+                        Element elementTuVung = element.select("span").first();
+                        Element elementPhienAm = element.select("span").next().first();
+
+                        Element elementTuLoai = element.select("span.bold").next().next().first();
+                        Element elementAmThanh = element.getElementsByTag("source").first();
+
+                        if (elementHinh != null) {
+                            hinh = elementHinh.attr("src");
+                        }
+                        if (elementTuVung != null) {
+                            tuVung = elementTuVung.text();
+                        }
+                        if (elementPhienAm != null) {
+                            phienAm = elementPhienAm.text();
+                        }
+                        if (elementTuLoai != null) {
+                            tuLoai = elementTuLoai.nextSibling().toString();
+                        }
+                        if (elementAmThanh != null) {
+                            amThanh = "https://600tuvungtoeic.com/" + elementAmThanh.attr("src");
+                        }
+                        if (elementSTT != null) {
+                            mangDuLieu.add(new DuLieu(++i, chuDe, tuVung, phienAm, tuLoai, tuLoai, hinh, amThanh, ""));
+                        }
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(stringRequest);
     }
 }

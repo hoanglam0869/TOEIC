@@ -3,8 +3,8 @@
     android:shape="rectangle">
 
     <stroke
-        android:width="@dimen/DialogStroke"
-        android:color="@color/DialogStroke" />
-    <corners android:radius="@dimen/DialogRadius" />
-    <solid android:color="#191970" />
+        android:width="@dimen/DialogStrokeWidth"
+        android:color="@color/DialogStrokeColor" />
+    <corners android:radius="@dimen/DialogCornerRadius" />
+    <solid android:color="#2b1462" />
 </shape>
