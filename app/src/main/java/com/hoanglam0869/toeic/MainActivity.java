@@ -16,6 +16,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     String chude;
     SharedPreferences sp;
+    String url = "https://600tuvungtoeic.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,15 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+    }
+
+    private void LayDuLieu() {
+        try {
+            Document document = Jsoup.connect(url).get();
+            Elements elements = document.select("div.gallery-item");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void MangChuDe(){
