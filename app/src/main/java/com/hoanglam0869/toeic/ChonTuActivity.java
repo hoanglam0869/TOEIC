@@ -10,29 +10,18 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.hoanglam0869.toeic.KetQua.KetQuaActivity;
-import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -52,7 +41,8 @@ public class ChonTuActivity extends AppCompatActivity {
 
     String chude;
     int stt = 0;
-    static int sai = 0;
+    static int sai;
+    static int tiendo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +78,8 @@ public class ChonTuActivity extends AppCompatActivity {
         pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(pagerAdapter);
         mPager.setPageTransformer(true, new ZoomOutPageTransformer());
+        sai = 0;
+        tiendo = 0;
     }
 
     private void AnhXa() {
@@ -105,11 +97,7 @@ public class ChonTuActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            ChonTuFragment fragment = new ChonTuFragment();
-            Bundle bundle = new Bundle();
-            bundle.putInt("stt", position);
-            fragment.setArguments(bundle);
-            return fragment;
+            return ChonTuFragment.TruyenDuLieu(position);
         }
 
         @Override
@@ -160,7 +148,7 @@ public class ChonTuActivity extends AppCompatActivity {
             TextView txtVangdialog = dialog.findViewById(R.id.textViewVang);
             TextView txtChuDe = dialog.findViewById(R.id.textViewChuDe);
 
-            int TienTrinh = (stt + 1) * progressBar.getMax() / mangTron.size();
+            int TienTrinh = (tiendo + 1) * progressBar.getMax() / mangTron.size();
             txtTienTrinh.setText(TienTrinh + "%");
             pbTienTrinh.setProgress(TienTrinh);
             txtExpdialog.setText(txtExp.getText().toString());

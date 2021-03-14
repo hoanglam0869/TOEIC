@@ -23,7 +23,7 @@
             android:id="@+id/imageViewExp"
             android:layout_width="@dimen/KnVang"
             android:layout_height="@dimen/KnVang"
-            android:layout_marginRight="@dimen/KcKnVang"
+            android:layout_marginRight="@dimen/Margin"
             android:layout_toLeftOf="@id/textViewExp"
             android:src="@drawable/kinhnghiem" />
 
@@ -31,7 +31,7 @@
             android:id="@+id/textViewExp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/KcKnVang"
+            android:layout_marginRight="@dimen/Margin"
             android:layout_toLeftOf="@id/imageViewVang"
             android:text="0"
             android:textColor="@color/MauChuDao" />
@@ -40,7 +40,7 @@
             android:id="@+id/imageViewVang"
             android:layout_width="@dimen/KnVang"
             android:layout_height="@dimen/KnVang"
-            android:layout_marginRight="@dimen/KcKnVang"
+            android:layout_marginRight="@dimen/Margin"
             android:layout_toLeftOf="@id/textViewVang"
             android:src="@drawable/vang" />
 
@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/KcKnVang"
+            android:layout_marginRight="@dimen/Margin"
             android:text="0"
             android:textColor="@color/MauChuDao" />
 
@@ -63,24 +63,10 @@
             android:tooltipText="abc" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <ListView
+        android:id="@+id/listViewChuDe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/relativeLayout"
-        android:padding="10dp">
-
-        <Button
-            android:id="@+id/buttonChontu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/duongvien_goctron"
-            android:text="Chọn từ" />
-
-        <ListView
-            android:id="@+id/listViewChuDe"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/buttonChontu"
-            android:layout_marginTop="10dp" />
-    </RelativeLayout>
+        android:layout_margin="@dimen/Margin" />
 </RelativeLayout>

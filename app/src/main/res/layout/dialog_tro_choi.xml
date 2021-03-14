@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/Padding">
+
+    <Button
+        android:id="@+id/buttonChonTu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/duongvien_goctron"
+        android:text="@string/ChonTu"
+        android:textSize="@dimen/ChieuCaoChu" />
+
+    <Button
+        android:id="@+id/buttonNgheVaChon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/Margin"
+        android:background="@drawable/duongvien_goctron"
+        android:text="@string/NgheVaChonTu"
+        android:textSize="@dimen/ChieuCaoChu" />
+</LinearLayout>

@@ -37,7 +37,7 @@ public class ChonTuFragment extends Fragment {
     ArrayList<DuLieu> mangDuLieu;
     ArrayList<DuLieu> mangTron;
     ArrayList<String> mangTraLoi;
-    int stt;
+    int stt = 0;
     int GoiYDe, Exp, Vang;
     boolean isGoiY;
     String chude;
@@ -155,7 +155,7 @@ public class ChonTuFragment extends Fragment {
         btnTu2.setClickable(false);
         AmThanh(R.raw.dung);
         GhiDapAn("D");
-        PlayNhacMp3(mangTron.get(stt).getAmThanh());
+        Chung.PlayNhacMp3(mangTron.get(stt).getAmThanh());
         new CountDownTimer(2000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -220,28 +220,20 @@ public class ChonTuFragment extends Fragment {
         valueAnimator.start();
     }
 
-    private void PlayNhacMp3(String url){
-        //url = "http://khoapham.vn/download/vietnamoi.mp3";
-        MediaPlayer mediaPlayer = new MediaPlayer();
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-        try {
-            mediaPlayer.setDataSource(url);
-            mediaPlayer.prepareAsync();
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mp.start();
-                }
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private void ThanhTienDo() {
         ObjectAnimator animation = ObjectAnimator.ofInt(progressBar, "progress",
-                stt * progressBar.getMax() / mangDuLieu.size(), (stt + 1) * progressBar.getMax() / mangDuLieu.size());
+                ChonTuActivity.tiendo * progressBar.getMax() / mangDuLieu.size(),
+                (ChonTuActivity.tiendo + 1) * progressBar.getMax() / mangDuLieu.size());
         animation.setDuration(1000);
         animation.start();
+        ChonTuActivity.tiendo++;
+    }
+
+    public static ChonTuFragment TruyenDuLieu(int position){
+        ChonTuFragment fragment = new ChonTuFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("stt", position);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 }
