@@ -14,4 +14,6 @@
     <color name="Sai">#F44336</color>
     <color name="TieuDe">#FFFFFF</color>
     <color name="BgProgressBar">#C0C0C0</color>
+
+    <color name="DialogStroke">#00FFFF</color>
 </resources>

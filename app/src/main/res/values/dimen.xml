@@ -10,4 +10,6 @@
     <dimen name="PaddingHinh">1dp</dimen>
     <dimen name="Padding">10dp</dimen>
     <dimen name="GoiY">48dp</dimen>
+    <dimen name="DialogStroke">2dp</dimen>
+    <dimen name="DialogRadius">20dp</dimen>
 </resources>

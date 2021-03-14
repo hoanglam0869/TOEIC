@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<DuLieu> mangChuDe;
     ChuDeAdapter adapter;
 
-    String chude;
+    String hinh = "", chuDe = "";
     SharedPreferences sp;
     String url = "https://600tuvungtoeic.com/";
 
@@ -50,14 +51,15 @@ public class MainActivity extends AppCompatActivity {
         txtExp.setText(sp.getString("Exp", "0"));
         txtVang.setText(sp.getString("Vang", "0"));
 
-        MangChuDe();
+        GetDuLieu();
+        mangChuDe = new ArrayList<>();
         adapter = new ChuDeAdapter(MainActivity.this, R.layout.dong_chu_de, mangChuDe);
         lvChuDe.setAdapter(adapter);
 
         lvChuDe.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                chude = mangChuDe.get(position).getChuDe();
+                chuDe = mangChuDe.get(position).getChuDe();
                 Dialog dialog = new Dialog(MainActivity.this);
                 dialog.setContentView(R.layout.dialog_tro_choi);
                 Button btnChonTu = dialog.findViewById(R.id.buttonChonTu);
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(MainActivity.this, ChonTuActivity.class);
-                        intent.putExtra("chude", chude);
+                        intent.putExtra("chude", chuDe);
                         startActivity(intent);
                     }
                 });
@@ -75,20 +77,31 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void LayDuLieu() {
+    private void GetDuLieu() {
         try {
             Document document = Jsoup.connect(url).get();
             Elements elements = document.select("div.gallery-item");
+            int i = 0;
+            for (Element element : elements) {
+                Element elementHinh = element.getElementsByTag("img").first();
+                Element elementChuDe = element.getElementsByTag("h3").first();
+                if (elementHinh != null) {
+                    hinh = elementHinh.attr("src");
+                }
+                if (elementChuDe != null) {
+                    chuDe = elementChuDe.text();
+                }
+                mangChuDe.add(new DuLieu(++i, chuDe, "", "", "", "", hinh, "", ""));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void MangChuDe(){
-        mangChuDe = new ArrayList<>();
+    /*private void MangChuDe(){
         mangChuDe.add(new DuLieu(1,"1. Contracts - Hợp Đồng", "", "", "", "", "https://600tuvungtoeic.com/template/english/images/lesson/contracts.jpg", "", ""));
         mangChuDe.add(new DuLieu(2,"2. Marketing - Nghiên Cứu Thị Trường", "", "", "", "", "https://600tuvungtoeic.com/template/english/images/lesson/marketing.jpg", "", ""));
         mangChuDe.add(new DuLieu(3,"3. Warrranties - Sự Bảo Hành", "", "", "", "", "https://600tuvungtoeic.com/template/english/images/lesson/warranties.jpg", "", ""));
         mangChuDe.add(new DuLieu(4,"4. Business Planning - Kế Hoạch Kinh Doanh", "", "", "", "", "https://600tuvungtoeic.com/template/english/images/lesson/business_planning.jpg", "", ""));
-    }
+    }*/
 }
