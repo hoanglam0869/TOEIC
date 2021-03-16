@@ -61,7 +61,6 @@ public class ChonTuActivity extends AppCompatActivity {
         AnhXa();
         ActionBar();
 
-
         Intent intent = getIntent();
         chuDe = intent.getStringExtra("chude");
         viTri = intent.getIntExtra("vitri", 0);

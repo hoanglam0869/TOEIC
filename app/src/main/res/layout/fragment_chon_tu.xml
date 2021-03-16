@@ -9,29 +9,7 @@
 
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/buttonTu1"
-        android:layout_below="@id/imageViewHinh">
 
-        <TextView
-            android:id="@+id/textViewNghia"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Nghĩa"
-            android:textColor="@color/MauChuDao"
-            android:textSize="@dimen/ChieuCaoChu" />
-
-        <ImageView
-            android:id="@+id/imageViewGoiYDe"
-            android:layout_width="@dimen/GoiY"
-            android:layout_height="@dimen/GoiY"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/goiyde" />
-    </RelativeLayout>
 
 
 </RelativeLayout>

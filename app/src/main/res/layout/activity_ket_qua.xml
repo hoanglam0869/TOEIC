@@ -10,11 +10,10 @@
         android:id="@+id/toolBarKetQua"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/MauChuDao"
+        android:background="@color/MainColor"
         app:navigationIcon="@drawable/quaylai"
         app:title="@string/KetQua"
-        app:titleMarginStart="@dimen/TieuDe"
-        app:titleTextColor="@color/TieuDe" />
+        app:titleTextColor="@color/ToolbarTitle" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
@@ -33,8 +32,8 @@
             android:gravity="center|end"
             android:padding="10dp"
             android:text="Exp"
-            android:textColor="@color/MauChuDao"
-            android:textSize="@dimen/ChieuCaoChu" />
+            android:textColor="@color/MainColor"
+            android:textSize="@dimen/TextHeight" />
 
         <ImageView
             android:id="@+id/imageViewExp"
@@ -53,8 +52,8 @@
             android:gravity="center|start"
             android:padding="10dp"
             android:text="Vàng"
-            android:textColor="@color/MauChuDao"
-            android:textSize="@dimen/ChieuCaoChu" />
+            android:textColor="@color/MainColor"
+            android:textSize="@dimen/TextHeight" />
 
         <ImageView
             android:id="@+id/imageViewVang"
@@ -82,7 +81,7 @@
             android:padding="10dp"
             android:text="Đúng"
             android:textColor="@color/Dung"
-            android:textSize="@dimen/ChieuCaoChu" />
+            android:textSize="@dimen/TextHeight" />
 
         <ImageView
             android:id="@+id/imageViewDung"
@@ -102,7 +101,7 @@
             android:padding="10dp"
             android:text="Sai"
             android:textColor="@color/Sai"
-            android:textSize="@dimen/ChieuCaoChu" />
+            android:textSize="@dimen/TextHeight" />
 
         <ImageView
             android:id="@+id/imageViewSai"
@@ -144,6 +143,6 @@
             android:layout_toRightOf="@id/imageViewLamLai"
             android:background="@drawable/duongvien_goctron"
             android:text="@string/TiepTuc"
-            android:textSize="@dimen/ChieuCaoChu" />
+            android:textSize="@dimen/TextHeight" />
     </RelativeLayout>
 </RelativeLayout>
