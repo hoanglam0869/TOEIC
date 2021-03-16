@@ -27,7 +27,7 @@ public class Chung {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, duongDan, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                String hinh = "", tuVung = "", phienAm = "", tuLoai = "null", amThanh = "";
+                String hinh = "", tuVung = "", phienAm = "", nghia = "", tuLoai = "", amThanh = "";
                 Document document = Jsoup.parse(response);
                 if (document != null) {
                     Elements elements = document.select("div.tuvung");
@@ -51,13 +51,14 @@ public class Chung {
                             phienAm = elementPhienAm.text();
                         }
                         if (elementTuLoai != null) {
-                            tuLoai = elementTuLoai.nextSibling().toString();
+                            tuLoai = elementTuLoai.text() + " " + elementTuLoai.nextSibling().toString();
+                            nghia = elementTuLoai.nextSibling().toString();
                         }
                         if (elementAmThanh != null) {
                             amThanh = "https://600tuvungtoeic.com/" + elementAmThanh.attr("src");
                         }
                         if (elementSTT != null) {
-                            mangDuLieu.add(new DuLieu(++i, chuDe, tuVung, phienAm, tuLoai, tuLoai, hinh, amThanh, ""));
+                            mangDuLieu.add(new DuLieu(++i, chuDe, tuVung, phienAm, nghia, tuLoai, hinh, amThanh, ""));
                         }
                     }
                 }

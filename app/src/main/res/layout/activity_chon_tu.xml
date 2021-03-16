@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ChonTuActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -13,77 +14,98 @@
         android:background="@color/MauChuDao"
         app:navigationIcon="@drawable/quaylai"
         app:title="@string/ChonTu"
-        app:titleMarginStart="@dimen/TieuDe"
-        app:titleTextColor="@color/TieuDe" />
+        app:titleTextColor="@color/ToolbarTitle" />
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolBarChonTu">
+        android:layout_height="@dimen/ExpGoldSize"
+        android:orientation="horizontal"
+        android:weightSum="6">
 
         <ImageView
-            android:id="@+id/imgGoiYDe"
-            android:layout_width="@dimen/KnVang"
-            android:layout_height="@dimen/KnVang"
-            android:layout_marginLeft="10dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:src="@drawable/goiyde" />
 
         <TextView
             android:id="@+id/textViewGoiYDe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/imgGoiYDe"
-            android:text="100"
-            android:textColor="@color/MauChuDao" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/MauChuDao"
+            android:textSize="@dimen/ExpGoldTextSize" />
 
         <ImageView
-            android:id="@+id/imageViewExp"
-            android:layout_width="@dimen/KnVang"
-            android:layout_height="@dimen/KnVang"
-            android:layout_marginRight="@dimen/KcKnVang"
-            android:layout_toLeftOf="@id/textViewExp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:src="@drawable/kinhnghiem" />
 
         <TextView
             android:id="@+id/textViewExp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/KcKnVang"
-            android:layout_toLeftOf="@id/imageViewVang"
-            android:text="0"
-            android:textColor="@color/MauChuDao" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/MauChuDao"
+            android:textSize="@dimen/ExpGoldTextSize" />
 
         <ImageView
-            android:id="@+id/imageViewVang"
-            android:layout_width="@dimen/KnVang"
-            android:layout_height="@dimen/KnVang"
-            android:layout_marginRight="@dimen/KcKnVang"
-            android:layout_toLeftOf="@id/textViewVang"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:src="@drawable/vang" />
 
         <TextView
             android:id="@+id/textViewVang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/KcKnVang"
-            android:text="0"
-            android:textColor="@color/MauChuDao" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/MauChuDao"
+            android:textSize="@dimen/ExpGoldTextSize" />
+    </LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/progressBarChonTu"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/ChieuCaoProgressBar"
-            android:layout_below="@id/imageViewVang"
-            android:progressDrawable="@drawable/custom_progressbar" />
-    </RelativeLayout>
-
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/pager"
-        android:layout_below="@id/relativeLayout"
+    <ProgressBar
+        android:id="@+id/progressBarChonTu"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-</RelativeLayout>
+        android:layout_height="@dimen/ProgressBarHeight"
+        android:progressDrawable="@drawable/custom_progressbar" />
+
+    <ImageView
+        android:layout_marginTop="20dp"
+        android:id="@+id/imageViewHinh"
+        android:layout_width="@dimen/ImageSize"
+        android:layout_height="@dimen/ImageSize"
+        android:layout_gravity="center"
+        android:background="@drawable/duongvien_goctron" />
+
+    <LinearLayout
+        android:padding="20dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/buttonTu1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/duongvien_goctron"
+            android:text="Từ 1"
+            android:textAllCaps="false"
+            android:textSize="@dimen/ChieuCaoChu" />
+
+        <Button
+            android:id="@+id/buttonTu2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/duongvien_goctron"
+            android:text="Từ 2"
+            android:textAllCaps="false"
+            android:textSize="@dimen/ChieuCaoChu" />
+    </LinearLayout>
+</LinearLayout>

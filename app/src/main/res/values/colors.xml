@@ -9,11 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="MauChuDao">#2196F3</color>
-    <color name="MauNen">#FFFFFF</color>
     <color name="Dung">#8BC34A</color>
     <color name="Sai">#F44336</color>
-    <color name="TieuDe">#FFFFFF</color>
-    <color name="BgProgressBar">#C0C0C0</color>
+    <color name="ToolbarTitle">#FFFFFF</color>
 
     <color name="DialogStrokeColor">#AE73C6</color>
     <color name="DialogTitle">#FACA78</color>

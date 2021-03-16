@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="TieuDe">115dp</dimen>
-    <dimen name="KnVang">24dp</dimen>
+    <dimen name="ExpGoldSize">24dp</dimen>
+    <dimen name="ExpGoldTextSize">18sp</dimen>
     <dimen name="KcKnVang">10dp</dimen>
-    <dimen name="ChieuCaoProgressBar">5dp</dimen>
-    <dimen name="ChieuCaoHinh">360dp</dimen>
+    <dimen name="ProgressBarHeight">4dp</dimen>
+    <dimen name="ImageSize">350dp</dimen>
     <dimen name="ChieuCaoChu">20sp</dimen>
     <dimen name="Margin">10dp</dimen>
     <dimen name="PaddingHinh">1dp</dimen>
